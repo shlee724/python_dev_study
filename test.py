@@ -1,4 +1,4 @@
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 from google import genai
 from google.genai import types
 from dotenv import load_dotenv
@@ -29,6 +29,22 @@ width, height = img.size
 # 4. 격자 설정 (매크로용 핵심)
 # ===============================
 grid_size = 50   # 격자 한 칸 크기(px) ← 여기 중요
+
+try:
+    font = ImageFont.truetype("arial.ttf", 12)
+except:
+    font = ImageFont.load_default()
+
+for y_idx, y in enumerate(range(0, height, grid_size)):
+    for x_idx, x in enumerate(range(0, width, grid_size)):
+        # 격자 좌표 텍스트
+        text = f"({x_idx},{y_idx})"
+
+        # 텍스트 위치 (칸 안쪽)
+        text_x = x + 3
+        text_y = y + 3
+
+        draw.text((text_x, text_y), text, fill=(255, 0, 0), font=font)
 
 # 세로선
 for x in range(0, width, grid_size):
