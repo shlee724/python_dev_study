@@ -59,12 +59,26 @@ response = client.models.generate_content(
     model="gemini-2.0-flash",
     contents=[
         """
-        이 이미지에는 격자가 표시되어 있다.
-        특정 버튼이나 UI 요소가 위치한 격자 좌표를 설명해줘.
-        (좌상단 기준)
+        이 이미지는 격자 기반 매크로용 화면이다.
+
+        규칙:
+        1. 격자 좌표는 반드시 (x, y) 정수 형태로만 답한다.
+        2. 각 UI 요소당 좌표는 정확히 하나만 제시한다.
+        3. 기준은 해당 UI 요소의 '중심이 위치한 격자 칸'이다.
+        4. 추정, 대략, 설명 표현을 사용하지 마라.
+
+        아래 JSON 형식으로만 출력하라:
+        {
+        "id_field": [x, y],
+        "password_field": [x, y],
+        "login_button": [x, y]
+        }
         """,
         image_part
-    ]
+    ],
+    config=types.GenerateContentConfig(
+        temperature=0.0
+    )
 )
 
 print(response.text)
