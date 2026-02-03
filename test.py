@@ -27,7 +27,7 @@ image_part = types.Part.from_bytes(
 response = client.models.generate_content(
     model="gemini-2.0-flash",
     contents=[
-        "이 이미지에 대해 자세히 설명해줘",
+        "이 이미지에 대해 자세히 설명해줘(한글로)",
         image_part
     ]
 )
